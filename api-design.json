@@ -1,0 +1,113 @@
+{
+	"production_host":"api.grab.com",
+	"development_host":"api-staging.grab.com",
+	"endpoints": [
+		{
+			"title":"Get List Restaurant",
+			"url":"/resto",
+			"method":"GET",
+			"request_param": {
+				"latitude":"-6.244145",
+				"longitude":"106.800561",
+				"limit":10,
+				"offset":0,
+			},
+			"response": [
+				{
+					"response_code":200,
+					"data": [
+						{
+							"id":1, 
+							"name":"Sana Sini Restaurant",
+							"location":"Jakarta",
+							"address":"Rawa Bebek Street",
+							"open_hour":"07am - 10pm",
+							"rating":5,
+							"cuisine":"Western Food, Chinese Food",
+							"price_est":"IDR 250K for 2 Person",
+							"image_thumb":"https://b.zmtcdn.com/data/pictures/2/7419572/b9872618bd6ff26e15df3da27823c7dc_top_thumb_620_314.jpg",
+							"image_large":"https://b.zmtcdn.com/data/pictures/2/7419572/e419db7f6b38f7167f6ff7e57d6ffec9.jpg?resize=1204%3A904&crop=1200%3A464%3B-2%2C219"
+						},
+						{
+							"id":2, 
+							"name":"Shaburi",
+							"location":"Bandung",
+							"address":"Thamrin Street",
+							"open_hour":"11am - 11pm",
+							"rating":3.5,
+							"cuisine":"Japanese Food Food",
+							"price_est":"IDR 150K for 2 Person",
+							"image_thumb":"https://b.zmtcdn.com/data/pictures/6/18244516/2ef855eb4166a8c0fa577ba53574c5cf_top_thumb_620_314.jpg",
+							"image_large":"https://b.zmtcdn.com/data/pictures/chains/5/7418865/32920e8ba647cbd4a9998ca317f97dc7.jpg?resize=1219%3A813&crop=1200%3A464%3B9%2C282"
+						},
+					]
+				},
+				{
+					"response_code":400,
+					"message":"No latitude and Longitude. Please activate your GPS"
+				}
+			]
+		},
+		{
+			"title":"Get Detail Restaurant",
+			"url":"/resto/{id}",
+			"method":"GET",
+			"response": [
+				{
+					"response_code":200,
+					"data": {
+						"id":2, 
+						"name":"Shaburi",
+						"location":"Bandung",
+						"address":"Thamrin Street",
+						"open_hour":"11am - 11pm",
+						"rating":3.5,
+						"cuisine":"Japanese Food Food",
+						"price_est":"IDR 150K for 2 Person",
+						"image_thumb":"https://b.zmtcdn.com/data/pictures/6/18244516/2ef855eb4166a8c0fa577ba53574c5cf_top_thumb_620_314.jpg",
+						"image_large":"https://b.zmtcdn.com/data/pictures/chains/5/7418865/32920e8ba647cbd4a9998ca317f97dc7.jpg?resize=1219%3A813&crop=1200%3A464%3B9%2C282"
+					}
+				},
+				{
+					"response_code":404,
+					"message":"Given resto Id is not found"
+				}
+			]
+		},
+		{
+			"title":"Create Reservation",
+			"url":"/resto",
+			"method":"POST",
+			"request_param": {
+				"name":"Satrya Rangga",
+				"resto_id":2,
+				"total_pax":2,
+				"date":"2018-05-10 17:00:00",
+				"phone_number":"081220202020"
+			},
+			"response": [
+				{
+					"response_code":200,
+					"message":"Success to make reservation",
+					"data": {
+						"reservation_code":"PR12008291JSK",
+						"name":"Satrya Rangga",
+						"resto_id":2,
+						"total_pax":2,
+						"date":"2018-05-10 17:00:00",
+						"phone_number":"081220202020"
+					}
+				},
+				{
+					"response_code":400,
+					"message":"Some fields has invalid value",
+					"errors": {
+						"name":"must be filled",
+						"date":"must be filled",
+						"total_pax":"must be integer"
+					}
+				}
+			]
+		}
+	]
+}
