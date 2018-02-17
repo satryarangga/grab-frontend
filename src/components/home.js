@@ -15,7 +15,7 @@ class Home extends Component {
 		return _.map(this.props.resto.list, (resto, a) => {
 			if(a > 0) {
 				return (
-					<li className="list-group-item col-sm-4">
+					<li key={resto.id} className="list-group-item col-sm-4">
 					<Link
 						to={`resto/${resto.id}`}
 					>
