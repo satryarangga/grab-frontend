@@ -11,7 +11,7 @@ function YearMonthForm({ date, localeUtils, onChange }) {
   const months = localeUtils.getMonths();
   const currentYear = new Date().getFullYear();
   let minYear = 0;
-  let maxYear = 0;
+  let maxYear = 1;
 
   const years = [];
   for (let i = currentYear - minYear; i <= currentYear + maxYear; i += 1) {
@@ -20,7 +20,7 @@ function YearMonthForm({ date, localeUtils, onChange }) {
 
   const handleChange = function handleChange(e) {
     const { year, month } = e.target.form;
-    onChange(new Date(year.value, month.value));
+    onChange(year, month.value);
   };
 
   return (
@@ -28,7 +28,7 @@ function YearMonthForm({ date, localeUtils, onChange }) {
       <select name="month" onChange={handleChange} value={date.getMonth()}>
         {months.map((month, i) => <option key={i} value={i}>{month}</option>)}
       </select>
-      <select name="year" onChange={handleChange} value={date.getFullYear()}>
+      <select name="year" onChange={handleChange} value={currentYear}>
         {years.map((year, i) =>
           <option key={i} value={year}>
             {year}
@@ -70,6 +70,9 @@ export default class Example extends React.Component {
   }
 
   handleDayClick = (day, { selected }) => {
+    if(day.getFullYear() < new Date().getFullYear()) {
+      day.setFullYear(new Date().getFullYear());
+    }
     this.setState({
       selectedDay: selected ? undefined : moment(day).format('YYYY/MM/DD'),
       onOpen: false
